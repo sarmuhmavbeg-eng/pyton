@@ -117,3 +117,90 @@ numbers[0], numbers[-1] = numbers[-1], numbers[0]
 print(numbers)  # [50, 20, 30, 40, 10]
 
 
+# Kvadratning tomoni berilgan
+a = float(input("Kvadrat tomoni a = "))
+
+perimetr = 4 * a
+yuza = a * a
+
+print("Kvadrat perimetri:", perimetr)
+print("Kvadrat yuzasi:", yuza)
+
+# Ввод стороны квадрата
+side = float(input("Введите сторону квадрата: "))
+
+# Вычисления
+perimeter = 4 * side
+area = side ** 2
+
+# Вывод результатов
+print(f"Периметр квадрата: {perimeter}")
+print(f"Площадь квадрата: {area}")
+
+
+import math
+
+# Doiraning diametri berilgan
+d = float(input("Doira diametri d = "))
+
+uzunlik = math.pi * d
+print("Doiraning uzunligi (aylanasi):", uzunlik)
+
+
+import math
+
+# Ввод диаметра круга
+diameter = float(input("Введите диаметр круга: "))
+
+# Вычисление длины окружности (C = π * d)
+length = math.pi * diameter
+
+# Вывод результата
+print(f"Длина окружности: {length:.2f}")
+
+
+a = float(input("a = "))
+b = float(input("b = "))
+
+ortalama = (a + b) / 2
+print("O‘rtacha qiymat:", ortalama)
+
+# Ввод двух чисел
+a = float(input("Введите первое число (a): "))
+b = float(input("Введите второе число (b): "))
+
+# Вычисление среднего арифметического
+mean = (a + b) / 2
+
+# Вывод результата
+print(f"Среднее арифметическое чисел {a} и {b}: {mean}")
+
+# Ввод двух чисел
+a = float(input("Введите первое число (a): "))
+b = float(input("Введите второе число (b): "))
+
+# Вычисления
+sum_result = a + b
+product = a * b
+square_a = a ** 2
+square_b = b ** 2
+
+# Вывод результатов
+print(f"Сумма: {a} + {b} = {sum_result}")
+print(f"Произведение: {a} * {b} = {product}")
+print(f"Квадрат первого числа: {a}² = {square_a}")
+print(f"Квадрат второго числа: {b}² = {square_b}")
+
+a = float(input("a = "))
+b = float(input("b = "))
+
+yigindi = a + b
+kopaytma = a * b
+kvadrat_a = a ** 2
+kvadrat_b = b ** 2
+
+print("Yig‘indisi:", yigindi)
+print("Ko‘paytmasi:", kopaytma)
+print("a ning kvadrati:", kvadrat_a)
+print("b ning kvadrati:", kvadrat_b)
+
