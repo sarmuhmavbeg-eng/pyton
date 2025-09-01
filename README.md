@@ -80,3 +80,40 @@ middle = numbers[len(numbers)//2]
 last = numbers[-1]
 new_list = [first, middle, last]
 print("Новый список:", new_list)
+
+cities = ["Toshkent", "Parij", "London", "New York"]
+
+if "Paris" in cities:
+    print("Paris ro‘yxatda bor")
+else:
+    print("Paris ro‘yxatda yo‘q")
+
+girls = ["lopez", "Luiza", "Shaxzoda", "Shakira"]
+
+if "Luiza" in cities:
+    print("Luisa ro‘yxatda bor")
+else:
+    print("Luisa ro‘yxatda yo‘q")
+
+cities = ["Москва", "Лондон", "Париж", "Токио", "Ташкент"]
+if "Ташкент" in cities:
+    print("Тошкент есть в списке")
+else:
+    print("Тошкент нет в списке")
+    original_list = [1, 2, 3, 4, 5]
+duplicated_list = original_list * 2
+print("Дублированный список:", duplicated_list)
+
+nums = [1, 2, 3]
+dup = nums * 2
+print(dup)  # [1, 2, 3, 1, 2, 3]
+
+numbers = [1, 2, 3, 4, 5]
+numbers[0], numbers[-1] = numbers[-1], numbers[0]
+print("Список после обмена:", numbers)
+numbers = [10, 20, 30, 40, 50]
+
+numbers[0], numbers[-1] = numbers[-1], numbers[0]
+print(numbers)  # [50, 20, 30, 40, 10]
+
+
