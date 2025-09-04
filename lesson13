@@ -1,0 +1,33 @@
+## Numpy+Pandas intro
+import numpy as np
+# --- numpy -- numerical python
+# --- c language, 100 times faster,
+ls = [1,2,3,4]
+arr = np.array(ls)
+
+print(ls)
+print (arr)
+for i in ls:
+    print(i**4)    
+a= arr**4
+print(a)
+arr4 = np.arange(2,100,1)
+filter1 = arr4>0
+arr4[filter1]
+arr4 = np.arange(1,101,1)
+filter1 = arr4>50
+arr4[filter1]
+arr4 = np.arange(1,101,1)
+arr4
+
+arr4 = np.arange(37,76)
+filter1 = arr4>37
+filter1 = arr4<76
+arr4[filter1]
+
+filter1 = arr4>37
+filter2 = arr4<76
+filter3 = filter1 & filter2
+arr4[filter3]
+filter3 = (arr4>37) & (arr4<76)
+arr4[filter3]
