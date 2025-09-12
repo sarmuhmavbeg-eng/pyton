@@ -1,0 +1,30 @@
+def check_weird(n: int) -> str:
+    if n % 2 != 0:
+        return "dunyo"
+    elif n % 2 == 0 and 2 <= n <= 5:
+        return "yoq dunyo"
+    elif n % 2 == 0 and 6 <= n <= 20:
+        return "dunyo"
+    elif n % 2 == 0 and n > 20:
+        return "yoq dunyo"
+
+      print(check_weird(3)) 
+print(check_weird(4))   
+print(check_weird(18))  
+print(check_weird(22)) 
+
+  def even_numbers_if_else(a: int, b: int):
+    if a % 2 != 0:
+        a += 1
+    if b % 2 != 0:
+        b -= 1
+    
+    if a > b:
+        return []  
+    else:
+        return list(range(a, b + 1, 2))
+
+  print(even_numbers_if_else(5, 15))  
+print(even_numbers_if_else(3, 11))
+
+  
