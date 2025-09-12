@@ -1,0 +1,91 @@
+def undscor(txt):
+    i = 2
+    while i < len(txt) - 1:
+        if txt[i].lower() in "Sayohat":
+            i += 1
+        else:
+            txt = txt[:i+1] + "_" + txt[i+1:]
+            i += 2
+    return txt
+
+print(undscor('Sayohat qilma'))
+
+n = 20
+for i in range(n):
+    print(i ** 2)
+i = 1
+while i <= 25:
+    print(i)
+    i += 1
+
+for i in range(2, 9):
+    for j in range(1, i + 2):
+        print(j, end=" ")
+    print()
+try:
+    n = int(input("Nomer kirit:"))
+    result = sum(range(n + 1))
+    print(f"Sum is: {result}")
+except ValueError:
+    print("nomer xato")
+
+
+
+    try:
+    n = int(input("Nomer kirit: "))
+    for i in range(1, 11):
+        print(f"{n} x {i} = {n * i}")
+except ValueError:
+    print("nomer xato")
+
+    numbers = [12, 75, 150, 180, 145, 525, 50]
+for num in numbers:
+    print(num)
+
+    try:
+    n = int(input("Nomer kirit: "))
+    print("Digits:", len(str(abs(n))))
+except ValueError:
+    print("omer xato")
+
+    for i in range(5):
+    for j in range(5 - i, 0, -1):
+        print(j, end=" ")
+    print()
+
+    list1 = [10, 20, 30, 40, 50]
+for i in range(len(list1) - 1, -1, -1):
+    print(list1[i])
+
+    for i in range(-10, 0):
+    print(i)
+    
+for i in range(5):
+    print(i)
+else:
+    print("Done")
+
+
+    for i in range(25, 51):
+    for j in range(2, i):
+        if i % j == 0:
+            break
+    else:
+        print(i)
+
+a, b = 0, 1
+for _ in range(10):
+    print(a)
+    a, b = b, a + b
+
+fac = 1
+for i in range(1, 6):
+    fac *= i
+print(fac)
+
+list1 = [1, 1, 2]
+list2 = [2, 3, 4]
+list3 = [x for x in list1 if x not in list2]
+list4 = [x for x in list2 if x not in list1]
+print(list3 + list4)
+
