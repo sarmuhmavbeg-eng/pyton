@@ -1,0 +1,45 @@
+-- SQL -- structured query language
+
+create database statistika02
+
+
+
+---- create --- yaratish (jadval, baza,...)
+---- drop ---- ochirish
+---- delete ---- tozalash, butunligicha + qatorlar boyicha
+---- truncate --- tozalash, butun tozalash
+---- alter -- ozgartirishni jadvalni
+---- update -- yangilash malumotlarni
+---- set -- malumotlarni belgilash
+---- declare --- yangi ozgaruvchi yaratish
+use statistika02
+
+create table Students (StudentID int, Studentname varchar(50), StudenScore decimal(10,2))
+select * from Students 
+insert into Students values (1,'Bekzod',50)
+insert into Students values (2,'Javlon',50), (3,'Sherali',90)
+insert into Students (StudentID, StudentName) values (4, 'Dilshod')
+delete Students
+where StudentID = 1
+
+---- truncate table Students
+
+select * from Students
+
+update Students
+set StudenScore = 100
+where StudentID = 1
+
+drop table Students
+
+alter table Students
+add StudentStatus varchar(30)
+
+select * from Students
+
+alter table Students
+drop column StudentStatus
+
+alter table Students
+alter column StudentID varchar (10)
+
