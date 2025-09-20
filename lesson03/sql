@@ -1,1 +1,56 @@
+-- ## Primary key, Foreign key  
 
+каталог окпо праймерики
+превичкадаги окпо форейж
+
+create database stat03_group2
+
+use stat03_group2
+
+create table Katalog (OKPO varchar(30),INN varchar (30), name varchar (100))
+
+alter table Katalog
+
+alter column OKPO varchar(30) not null
+
+
+
+alter table Katalog
+add constraint PK_OKPO primary key (OKPO)
+
+create table Pervichka (OKPO varchar(30) foreign key references Katalog (OKPO),INN varchar(30),Hisobot_oyi int) 
+
+insert into Katalog values (1234567,987654321,'AGMK')
+
+insert into Pervichka values (1234567,987654321,1000)
+
+select * from Katalog
+select * from Pervichka
+
+
+
+import pandas as pd
+from sqlalchemy import create_engine
+import pyodbc
+
+df2 = pd.read_excel("0.perv.xlsx")
+df3 = pd.read_excel("1.katalog.xlsx")
+
+server_name = "DATA-15"  #e.g., or the server's network name
+database_name = "stat03_group2"
+
+engine = create_engine(
+    f"mssql+pyodbc://@{server_name}/{database_name}?"
+    "trusted_cennection=yes&driver-ODBC+Driver+17+SQL+Server"
+)
+
+connection = 
+
+
+
+engine = create_engine(
+    f"mssql+pyodbc://@{server_name}/{database_name}?"
+    "trusted_connection=yes&driver=ODBC+Driver+17+for+SQL+Server"
+)
+
+connection = engine.connect()
