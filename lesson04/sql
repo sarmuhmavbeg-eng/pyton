@@ -81,3 +81,17 @@ where Category in ('Electronics','Accessories') and (Price>500 and StockQuantity
 where Category in ('Electronics','Accessories') and (Price>500 and StockQuantity >20) 
 
 FAQAT NOMINI QOLDIR
+
+select distinct Category, ProductName from Products
+
+distink 2 ta colum bilan isjlashi
+
+
+select distinct Category, ProductName from Products
+
+select distinct ProductName,Category from Products
+
+товарларни таҳрирлаш ва таҳлаб бериш тўлиқлигини
+
+select * from Products
+order by Price desc   katta yoki kichkina qilsa boladi
