@@ -47,3 +47,37 @@ INSERT INTO Products VALUES
 (38, 'Juicer', 55.00, 'Electronics', 30),
 (39, 'Toaster', 40.00, 'Electronics', 70),
 (40, 'Dishwasher', 500.00, 'Electronics', 20)
+
+select * from Products
+
+where Price <> 100  ҳисоблайди 
+
+
+select * from Products
+where Category = 'Electronics'   электроникс сўзи борлари билан чиқарриб беради
+
+select * from Products
+where Category like '%on%'  шунга ўҳшашларни чиқариб беради.
+
+select * from Products
+where Category like 'S%'  бош ҳарфи қўйилса ўхшашларни чиқарриб беради.
+
+    select * from Products
+where Category like '_l%'  бош ҳарфни бермасдан 2 чи ҳарфдан чиқариб бер
+
+select * from Products
+where Category like '[ABC]%'
+
+select * from Products
+where Price like '50%'  рақамларни чиқариб беради.
+
+
+select * from Products
+where Category in ('Electronics','Accessories') and (Price>500 and StockQuantity >10) 
+
+топшириқ сифати.
+
+    select Productname from Products
+where Category in ('Electronics','Accessories') and (Price>500 and StockQuantity >20) 
+
+FAQAT NOMINI QOLDIR
