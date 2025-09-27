@@ -18,3 +18,85 @@ select sum(StockQuantity) from Products
 select avg(StockQuantity) from Products
 select max(StockQuantity) from Products
 select min(StockQuantity) from Products
+
+
+https://github.com/HusanAshirov/Statistika/blob/main/Group2/SQL/lesson04.sql#L1
+
+
+select sum(StockQuantity) from Products
+select avg(StockQuantity) from Products
+select max(StockQuantity) from Products
+select min(StockQuantity) from Products
+
+
+create table test (id int)
+
+insert into test values (1),(2),(3),(null),(4),(3),(5),(null)
+
+select * from test
+select count(id) from test
+select count(distinct id) from test
+select count(*) from test
+
+select * from Products
+select category, sum(StockQuantity) from Products
+group by category
+
+
+select category, count(Productid) from Products
+group by category
+
+
+
+select Category, sum(Price*StockQuantity) as totalSales from products
+
+group	by Category
+
+having sum(Price*StockQuantity) > 20000
+
+order by totalSales desc
+
+select * from Products
+
+
+select * from Products
+select category, max(Price) as max_price, sum(StockQuantity) as totalquantity from Products
+group by category
+
+select * from Products
+select category, sum(StockQuantity*Price) as totalquantity from Products
+group by category
+having sum(StockQuantity*Price) > 20000
+
+
+
+where
+select
+from
+order by
+group by
+having
+
+
+select
+from
+where
+group by
+having
+order by
+
+
+
+from
+where
+group by
+having
+select
+order by
+
+select category, sum(StockQuantity*Price) as totalquantity from Products
+where Category <> 'Electronics'
+group by category
+having sum(StockQuantity*Price) > 20000
+order by totalquantity
+
