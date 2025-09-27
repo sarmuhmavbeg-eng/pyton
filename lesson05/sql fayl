@@ -1,0 +1,20 @@
+create database stat02_lesson06
+
+use stat02_lesson06
+
+select * into Products from 
+
+select * from Products
+
+----  Aggregation --- qayta ishlah
+
+----- sum 
+----- avg 
+----- count(), count (distinct), count(*)
+----- max
+----- min
+
+select sum(StockQuantity) from Products
+select avg(StockQuantity) from Products
+select max(StockQuantity) from Products
+select min(StockQuantity) from Products
