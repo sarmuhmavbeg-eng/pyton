@@ -220,3 +220,39 @@ if __name__ == "__main__":
     main()
 
 
+# Quick test
+def test_todo_list():
+    todo = ToDoList()
+    todo.add_task("Learn Python", "Complete OOP exercises", "2024-12-31")
+    todo.add_task("Buy groceries", "Milk, Eggs, Bread", "2024-01-15")
+    todo.list_all_tasks()
+    todo.mark_task_complete(0)
+    todo.list_incomplete_tasks()
+
+# test_todo_list()
+
+
+
+
+# Quick test
+def test_blog_system():
+    blog = Blog()
+    blog.add_post("Python Basics", "Learning Python is fun!", "John Doe")
+    blog.add_post("OOP in Python", "Classes and objects", "Jane Smith")
+    blog.list_all_posts()
+    blog.list_posts_by_author("John Doe")
+
+# test_blog_system()
+
+
+# Quick test
+def test_banking_system():
+    bank = Bank("Test Bank")
+    acc1 = bank.create_account("Alice", 1000)
+    acc2 = bank.create_account("Bob", 500)
+    bank.deposit(acc1, 200)
+    bank.transfer(acc1, acc2, 300)
+    bank.list_all_accounts()
+
+# test_banking_system()
+
