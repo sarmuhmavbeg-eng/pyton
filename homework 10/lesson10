@@ -1,0 +1,222 @@
+1
+from datetime import datetime
+
+class Task:
+    def __init__(self, title, description, due_date):
+        self.title = title
+        self.description = description
+        self.due_date = datetime.strptime(due_date, "%Y-%m-%d")
+        self.completed = False
+
+    def mark_complete(self):
+        self.completed = True
+
+    def __str__(self):
+        status = "✅" if self.completed else "❌"
+        return f"{status} {self.title} (дедлайн: {self.due_date.date()}) - {self.description}"
+
+class ToDoList:
+    def __init__(self):
+        self.tasks = []
+
+    def add_task(self, task):
+        self.tasks.append(task)
+
+    def list_all(self):
+        for i, task in enumerate(self.tasks, 1):
+            print(i, task)
+
+    def list_incomplete(self):
+        for i, task in enumerate(self.tasks, 1):
+            if not task.completed:
+                print(i, task)
+
+    def mark_task_complete(self, index):
+        if 0 <= index < len(self.tasks):
+            self.tasks[index].mark_complete()
+            print("Задача завершена!")
+        else:
+            print("Неверный индекс задачи")
+
+def main():
+    todo = ToDoList()
+    while True:
+        print("\n📋 ToDo Menu:\n1. Добавить задачу\n2. Отметить задачу как выполненную\n3. Показать все задачи\n4. Показать невыполненные задачи\n5. Выход")
+        choice = input("Выберите: ")
+        if choice == "1":
+            title = input("Название задачи: ")
+            desc = input("Описание: ")
+            due = input("Дедлайн (YYYY-MM-DD): ")
+            todo.add_task(Task(title, desc, due))
+        elif choice == "2":
+            todo.list_all()
+            idx = int(input("Введите номер задачи: ")) - 1
+            todo.mark_task_complete(idx)
+        elif choice == "3":
+            todo.list_all()
+        elif choice == "4":
+            todo.list_incomplete()
+        elif choice == "5":
+            break
+        else:
+            print("Неверный выбор!")
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+2
+
+
+class Post:
+    def __init__(self, title, content, author):
+        self.title = title
+        self.content = content
+        self.author = author
+
+    def __str__(self):
+        return f"📌 {self.title} by {self.author}\n{self.content}\n"
+
+class Blog:
+    def __init__(self):
+        self.posts = []
+
+    def add_post(self, post):
+        self.posts.append(post)
+
+    def list_posts(self):
+        for p in self.posts:
+            print(p)
+
+    def posts_by_author(self, author):
+        for p in self.posts:
+            if p.author == author:
+                print(p)
+
+    def delete_post(self, title):
+        self.posts = [p for p in self.posts if p.title != title]
+
+    def edit_post(self, old_title, new_title, new_content):
+        for p in self.posts:
+            if p.title == old_title:
+                p.title, p.content = new_title, new_content
+                print("Пост обновлён!")
+
+    def latest_posts(self, n=3):
+        for p in self.posts[-n:]:
+            print(p)
+
+def main():
+    blog = Blog()
+    while True:
+        print("\n📝 Blog Menu:\n1. Добавить пост\n2. Показать все посты\n3. Посты по автору\n4. Удалить пост\n5. Редактировать пост\n6. Последние посты\n7. Выход")
+        choice = input("Выберите: ")
+        if choice == "1":
+            t = input("Заголовок: ")
+            c = input("Содержание: ")
+            a = input("Автор: ")
+            blog.add_post(Post(t, c, a))
+        elif choice == "2":
+            blog.list_posts()
+        elif choice == "3":
+            a = input("Автор: ")
+            blog.posts_by_author(a)
+        elif choice == "4":
+            t = input("Заголовок поста для удаления: ")
+            blog.delete_post(t)
+        elif choice == "5":
+            old = input("Старый заголовок: ")
+            new = input("Новый заголовок: ")
+            cont = input("Новое содержание: ")
+            blog.edit_post(old, new, cont)
+        elif choice == "6":
+            blog.latest_posts()
+        elif choice == "7":
+            break
+
+if __name__ == "__main__":
+    main()
+
+
+
+3
+
+class Account:
+    def __init__(self, acc_number, holder, balance=0):
+        self.acc_number = acc_number
+        self.holder = holder
+        self.balance = balance
+
+    def deposit(self, amount):
+        self.balance += amount
+
+    def withdraw(self, amount):
+        if self.balance >= amount:
+            self.balance -= amount
+        else:
+            print("❌ Недостаточно средств!")
+
+    def __str__(self):
+        return f"{self.holder} ({self.acc_number}) — Баланс: {self.balance}"
+
+class Bank:
+    def __init__(self):
+        self.accounts = {}
+
+    def add_account(self, account):
+        self.accounts[account.acc_number] = account
+
+    def get_account(self, acc_number):
+        return self.accounts.get(acc_number)
+
+    def transfer(self, from_acc, to_acc, amount):
+        if from_acc in self.accounts and to_acc in self.accounts:
+            if self.accounts[from_acc].balance >= amount:
+                self.accounts[from_acc].withdraw(amount)
+                self.accounts[to_acc].deposit(amount)
+                print(f"Перевод {amount} выполнен!")
+            else:
+                print("❌ Недостаточно средств")
+        else:
+            print("❌ Счёт не найден")
+
+def main():
+    bank = Bank()
+    while True:
+        print("\n🏦 Bank Menu:\n1. Добавить счёт\n2. Проверить баланс\n3. Пополнить\n4. Снять\n5. Перевод\n6. Все счета\n7. Выход")
+        choice = input("Выберите: ")
+        if choice == "1":
+            acc = input("Номер счёта: ")
+            name = input("Имя владельца: ")
+            bank.add_account(Account(acc, name))
+        elif choice == "2":
+            acc = input("Введите номер счёта: ")
+            account = bank.get_account(acc)
+            if account: print(account)
+        elif choice == "3":
+            acc = input("Счёт: ")
+            amt = float(input("Сумма: "))
+            account = bank.get_account(acc)
+            if account: account.deposit(amt)
+        elif choice == "4":
+            acc = input("Счёт: ")
+            amt = float(input("Сумма: "))
+            account = bank.get_account(acc)
+            if account: account.withdraw(amt)
+        elif choice == "5":
+            from_acc = input("Отправитель: ")
+            to_acc = input("Получатель: ")
+            amt = float(input("Сумма: "))
+            bank.transfer(from_acc, to_acc, amt)
+        elif choice == "6":
+            for acc in bank.accounts.values():
+                print(acc)
+        elif choice == "7":
+            break
+
+if __name__ == "__main__":
+    main()
+
+
