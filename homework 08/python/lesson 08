@@ -1,0 +1,200 @@
+try:
+    x = 10 / 0
+except ZeroDivisionError:
+    print("Ошибка: деление на ноль невозможно")
+
+
+try:
+    num = int(input("Введите целое число: 16"))
+    print("Вы ввели:", num)
+except ValueError:
+    print("Ошибка: это не целое число")
+
+
+try:
+    with open("data.txt", "r") as f:
+        print(f.read())
+except FileNotFoundError:
+    print("Ошибка: файл не найден")
+
+
+try:
+    a = float(input("Введите первое число: "))
+    b = float(input("Введите второе число: "))
+    print("Сумма:", a + b)
+except ValueError:
+    print("Ошибка: введены не числа")
+
+
+try:
+    # Попытка открыть системный файл без прав
+    with open("/root/.bashrc", "w") as file:
+        file.write("test")
+except PermissionError:
+    print("Ошибка: Нет прав доступа к файлу!")
+
+
+lst = [1, 2, 3]
+try:
+    print(lst[5])
+except IndexError:
+    print("Ошибка: индекс за пределами списка")
+
+
+try:
+    num = int(input("Введите число: "))
+    print("Вы ввели:", num)
+except KeyboardInterrupt:
+    print("\nВвод отменён пользователем")   
+
+try:
+    x = 10 / 0
+except ArithmeticError:
+    print("Арифметическая ошибка")
+
+
+try:
+    with open("file.txt", "r", encoding="ascii") as f:
+        print(f.read())
+except UnicodeDecodeError:
+    print("Ошибка: проблемы с кодировкой")
+
+
+try:
+    num = 10
+    num.append(5)   # у int нет метода append
+except AttributeError:
+    print("Ошибка: такого атрибута не существует")
+
+
+
+with open("file.txt", "r") as f:
+    print(f.read())    
+
+
+
+n = 3
+with open("file.txt", "r") as f:
+    for i in range(n):
+        print(f.readline(), end="")
+
+
+with open("file.txt", "a") as f:
+    f.write("Новая строка\n")
+
+with open("file.txt", "r") as f:
+    print(f.read())
+
+
+with open("file.txt", "a") as f:
+    f.write("Новая строка\n")
+
+with open("file.txt", "r") as f:
+    print(f.read())
+
+
+n = 2
+with open("file.txt", "r") as f:
+    lines = f.readlines()
+    print("".join(lines[-n:]))
+
+
+with open("file.txt", "r") as f:
+    lines = f.readlines()
+print(lines)
+
+with open("file.txt", "r") as f:
+    data = f.read()
+print(data)
+
+
+with open("file.txt", "r") as f:
+    chars = list(f.read())
+print(chars)
+
+
+with open("file.txt", "r") as f:
+    words = f.read().split()
+    longest = max(words, key=len)
+print(longest)
+
+with open("file.txt", "r") as f:
+    print("Количество строк:", len(f.readlines()))
+
+
+from collections import Counter
+
+with open("file.txt", "r") as f:
+    words = f.read().replace(",", " ").split()
+    counter = Counter(words)
+print(counter)
+
+
+import os
+
+print("Размер:", os.path.getsize("file.txt"), "байт")
+
+
+data = ["apple", "banana", "cherry"]
+with open("list.txt", "w") as f:
+    for item in data:
+        f.write(item + "\n")
+
+
+with open("file.txt", "r") as f1, open("copy.txt", "w") as f2:
+    f2.write(f1.read())
+
+
+
+with open("file1.txt", "r") as f1, open("file2.txt", "r") as f2:
+    for a, b in zip(f1, f2):
+        print(a.strip() + " " + b.strip())
+
+
+import random
+with open("file.txt", "r") as f:
+    lines = f.readlines()
+    print(random.choice(lines))
+
+
+f = open("file.txt", "r")
+print("Файл закрыт?", f.closed)
+f.close()
+print("Файл закрыт?", f.closed)
+
+
+
+with open("file.txt", "r") as f:
+    lines = [line.strip() for line in f]
+print(lines)
+
+with open("file.txt", "r") as f:
+    text = f.read().replace(",", " ")
+    words = text.split()
+print("Количество слов:", len(words))
+
+
+
+files = ["a.txt", "b.txt"]
+chars = []
+for filename in files:
+    with open(filename, "r") as f:
+        chars.extend(list(f.read()))
+print(chars)
+
+
+
+import string
+
+for letter in string.ascii_uppercase:
+    with open(f"{letter}.txt", "w") as f:
+        f.write(f"Файл {letter}\n")
+
+
+import string
+
+with open("alphabet.txt", "w") as f:
+    for letter in string.ascii_uppercase:
+        f.write(f"{letter} - 1\n")
+
+
