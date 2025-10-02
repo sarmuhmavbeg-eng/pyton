@@ -1,1 +1,36 @@
 Lesson06 
+
+
+create database stat03_lesson06
+use stat03_lesson06
+
+select * from Customers
+select * from FactSales
+
+---- Join, cardinality,
+---
+
+		--- inner join
+		--- outer join
+			--- left outer
+			--- right outer join
+			--- full outer join
+	-- cross join
+	-- self join
+
+
+create table Test1 (id int)
+insert into Test1 values (1),(2),(3),(4)
+select * from Test1
+
+create table Test2 (id int)
+insert into Test2 values (3),(4),(5),(6)
+select * from Test2
+select * from Test1
+
+
+select * from  Test1
+inner join Test2
+on Test1.id = Test2.id
+
+
