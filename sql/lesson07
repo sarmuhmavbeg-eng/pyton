@@ -49,3 +49,12 @@ order by s1.year
 select * from ProductSales
 
 
+
+select * from ProductSales
+
+select ps1.productName, ps1.Year,ps1.Sales,sum(ps2.Sales) as runningtotal from productSales ps1
+join productSales as ps2
+on ps1.productName = ps2.productName and ps1.Year >= ps2.Year
+group by ps1.productName,ps1.Year,ps1.Sales
+order by ps1.productName,ps1.Year
+
