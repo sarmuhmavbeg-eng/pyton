@@ -1,0 +1,104 @@
+python -m venv myenv
+myenv\Scripts\activate
+
+source myenv/bin/activate
+
+
+
+pip install requests pandas numpy
+
+project/
+│
+├── math_operations.py
+├── string_utils.py
+│
+├── geometry/
+│   ├── __init__.py
+│   └── circle.py
+│
+└── file_operations/
+    ├── __init__.py
+    ├── file_reader.py
+    └── file_writer.py
+
+
+
+
+# string_utils.py
+
+def reverse_string(s):
+    """Переворачивает строку"""
+    return s[::-1]
+
+def count_vowels(s):
+    """Подсчитывает количество гласных в строке"""
+    vowels = "aeiouAEIOU"
+    return sum(1 for char in s if char in vowels)
+
+
+
+
+# geometry/__init__.py
+# Можно оставить пустым или добавить:
+__all__ = ['circle']
+
+# geometry/circle.py
+import math
+
+def calculate_area(radius):
+    """Вычисляет площадь круга"""
+    return math.pi * radius ** 2
+
+def calculate_circumference(radius):
+    """Вычисляет длину окружности"""
+    return 2 * math.pi * radius
+
+
+
+# file_operations/__init__.py
+__all__ = ['file_reader', 'file_writer']
+
+
+# file_operations/file_reader.py
+
+def read_file(filepath):
+    """Считывает содержимое файла"""
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            return f.read()
+    except FileNotFoundError:
+        return "Файл не найден."
+
+
+# file_operations/file_writer.py
+
+def write_file(filepath, content):
+    """Записывает содержимое в файл"""
+    with open(filepath, 'w', encoding='utf-8') as f:
+        f.write(content)
+
+
+# main.py
+
+from math_operations import add, subtract, multiply, divide
+from string_utils import reverse_string, count_vowels
+from geometry.circle import calculate_area, calculate_circumference
+from file_operations.file_reader import read_file
+from file_operations.file_writer import write_file
+
+# Математика
+print(add(5, 3))
+print(divide(10, 2))
+
+# Строки
+print(reverse_string("Python"))
+print(count_vowels("OpenAI"))
+
+# Геометрия
+print(calculate_area(5))
+print(calculate_circumference(5))
+
+# Работа с файлами
+write_file("example.txt", "Hello from Python!")
+print(read_file("example.txt"))
+
