@@ -1,1 +1,109 @@
 https://github.com/hikmatillasayfullayev1992-ctrl/SQL
+
+
+https://github.com/sarmuhmavbeg-eng/pyton/edit/main/lesson09/sql
+
+
+create database stat02_lesson11
+
+use stat02_lesson11
+
+CREATE TABLE Employees (
+    employee_id int,
+    first_name varchar(50),
+    last_name varchar(50),
+    department_id int,
+    salary decimal(10, 2),
+    hire_date date
+)
+
+INSERT INTO employees (employee_id, first_name, last_name, department_id, salary, hire_date)
+VALUES
+    (1, 'Alice', 'Johnson', 101, 75000.00, '2020-02-15'),
+    (2, 'Bob', 'Smith', 102, 64000.00, '2019-07-22'),
+    (3, 'Charlie', 'Brown', 103, 82000.00, '2021-03-18'),
+    (4, 'Diana', 'Evans', 101, 92000.00, '2018-11-05'),
+    (5, 'Eve', 'Campbell', 104, 56000.00, '2022-01-10'),
+    (6, 'Frank', 'Harris', 102, 72000.00, '2020-05-29'),
+    (7, 'Grace', 'Lee', 103, 81000.00, '2019-09-17'),
+    (8, 'Henry', 'Green', 104, 59000.00, '2021-06-01'),
+    (9, 'Isabella', 'Garcia', 101, 66000.00, '2020-12-08'),
+    (10, 'Jack', 'White', 102, 87000.00, '2017-08-25'),
+  (11, 'Joe', 'Smith', 101, 75000.00, '2017-08-25'),
+  (12, 'Lily', 'Pete', 102, 72000.00, '2017-08-25')
+
+  select * from Employees
+
+----- subquery---- surov
+----- sub + query----  katta surovlarga yordamchi bolib keleadigan bir bolak--
+ 
+ 
+select * from Employees
+
+select *, 'Sardor aka' + 'Manager' from Employees
+
+select *,1000 + 100 from Employees
+
+select *,(select 1000) from Employees
+
+select *,(select max(salary) from Employees) as avg_salary from Employees
+
+--- mustaqil -- alohida ishlaydi -- independent
+--- boglangan -- bir-biriga bogliq holatda -- correleted subquery
+
+select 
+		*,
+		(select avg(salary) from Employees as E2
+		where E2.department_id = E1.department_id) avg_salary
+		from Employees as E1
+order by department_id
+
+
+
+select 
+		*,
+		(select max(hire_date) from Employees as E2
+		where E2.department_id = E1.department_id) max_hire
+		from Employees as E1
+order by department_id
+
+
+select 
+		*,
+		(select max(hire_date) from Employees as E2
+		where E2.department_id = E1.department_id) avg_salary
+		from Employees as E1
+order by department_id
+
+
+
+select max(salary) from Employees
+where salary < (select max(salary)from Employees)
+
+
+select max(salary) from Employees
+where salary < (select max(salary) from Employees
+where salary < (select max(salary)from Employees))
+
+
+select distinct salary from Employees as E1
+where 3 = (select count(salary) from Employees as E2 where E2.salary >=e1.salary)
+
+select * from Employees
+
+select 
+		*,
+		(select max(salary) from Employees as E2
+		where E2.department_id = E1.department_id) avg_salary
+		from Employees as E1
+order by department_id
+
+select * from Employees 
+where salary > (select avg (salary) from Employees)
+
+
+select * from Employees e where salary > (select avg(salary) from Employees where department_id = e.department_id);
+
+
+
+
