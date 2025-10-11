@@ -1,0 +1,46 @@
+-----
+
+--- temporary tables--- vaqtinchalik taybellar
+
+
+create database stat02_lesson12
+
+use stat02_lesson12
+
+create table #test (id int)
+
+insert into #test values (1),(2)
+
+select * from #test
+
+
+--- vaqtinchalik table 2 turga bo'linadi--
+---1 local temp table--
+---  only work in work one environment
+---2 global temp table--
+---- work in work all environment
+
+create table ##test (id int)
+
+insert into ##test values (1),(2)
+
+select * from ##test
+
+-------
+
+select * from employees
+
+select * from (
+select * from employees) as A
+
+select department_id, avg(salary) as avg_salary from Employees group by department_id;
+
+
+select department_id,avg(salary) AS avg_salary from Employees group by department_id having avg(salary) > 80000
+
+
+select * from Employees where department_id in (select department_id from Employees group by department_id having avg(salary) > 80000);
+
+
+
+
