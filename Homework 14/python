@@ -6,7 +6,7 @@ with open("students.json", "r", encoding="utf-8") as f:
 
 # Ҳар бир талаба ҳақида маълумот чиқариш
 for student in students:
-    print("👤 Талаба:", student.get("ism"))
+    print(" Талаба:", student.get("ism"))
     print("   Ёш:", student.get("yosh"))
     print("   Гуруҳ:", student.get("guruh"))
     print("   Баҳолар:", student.get("baholar"))
@@ -30,13 +30,13 @@ javob = requests.get(url)
 data = javob.json()
 
 if javob.status_code == 200:
-    print(f"🌤 {shahar} шаҳридаги об-ҳаво:")
+    print(f" {shahar} шаҳридаги об-ҳаво:")
     print("Ҳарорат:", data["main"]["temp"], "°C")
     print("Ҳис этилади:", data["main"]["feels_like"], "°C")
     print("Намлик:", data["main"]["humidity"], "%")
     print("Тавсиф:", data["weather"][0]["description"])
 else:
-    print("❌ Маълумотни олиб бўлмади. Код:", javob.status_code)
+    print("Маълумотни олиб бўлмади. Код:", javob.status_code)
 
 
 
@@ -60,7 +60,7 @@ def saqlash():
         json.dump(books, f, ensure_ascii=False, indent=4)
 
 while True:
-    print("\n📚 Китоблар тизими:")
+    print("\n Китоблар тизими:")
     print("1. Янги китоб қўшиш")
     print("2. Китобни янгилаш")
     print("3. Китобни ўчириш")
@@ -75,7 +75,7 @@ while True:
         yil = input("Нашр йили: ")
         books.append({"nom": nom, "muallif": muallif, "yil": yil})
         saqlash()
-        print("✅ Китоб қўшилди.")
+        print("Китоб қўшилди.")
 
     elif tanlov == "2":
         nom = input("Янгиланадиган китоб номи: ")
@@ -84,10 +84,10 @@ while True:
                 b["muallif"] = input("Янги муаллиф: ")
                 b["yil"] = input("Янги нашр йили: ")
                 saqlash()
-                print("✅ Китоб янгиланди.")
+                print(" Китоб янгиланди.")
                 break
         else:
-            print("❌ Китоб топилмади.")
+            print("Китоб топилмади.")
 
     elif tanlov == "3":
         nom = input("Ўчириладиган китоб номи: ")
@@ -100,7 +100,7 @@ while True:
             print("Китоблар йўқ.")
         else:
             for b in books:
-                print(f"📖 {b['nom']} ({b['muallif']}, {b['yil']})")
+                print(f"{b['nom']} ({b['muallif']}, {b['yil']})")
 
     elif tanlov == "0":
         print("Чиқилди.")
@@ -124,11 +124,11 @@ data = javob.json()
 
 if data.get("Search"):
     film = random.choice(data["Search"])
-    print(f"🎥 Тавсия этилган фильм: {film['Title']}")
+    print(f" Тавсия этилган фильм: {film['Title']}")
     print("Йил:", film["Year"])
     print("IMDB ID:", film["imdbID"])
 else:
-    print("❌ Бу жанр бўйича фильмлар топилмади ёки API калит хато.")
+    print("Бу жанр бўйича фильмлар топилмади ёки API калит хато.")
 
 
 
