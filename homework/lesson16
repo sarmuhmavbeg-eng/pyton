@@ -1,0 +1,84 @@
+import numpy as np
+
+royxat = [12, 23, 13, 32, 100, 36, 32]
+massiv = np.array(royxat)
+
+print("Бошланғич рўйхат:", royxat)
+print("Бир ўлчамли NumPy массив:", massiv)
+
+
+
+import numpy as np
+
+matritsa = np.arange(2, 11).reshape(3, 3)
+print(matritsa)
+
+
+import numpy as np
+
+v = np.zeros(10)
+print("Бошланғич вектор:", v)
+
+v[5] = 11
+print("6-элемент 11 га ўзгартирилган:", v)
+
+
+import numpy as np
+
+massiv = np.arange(12, 38)
+print(massiv)
+
+
+import numpy as np
+
+massiv = np.array([1, 2, 3, 4])
+print("Бошланғич массив:", massiv)
+
+float_massiv = massiv.astype(float)
+print("Float турига айланган:", float_massiv)
+
+import numpy as np
+
+celsius = np.array([0, 12, 45.21, 34, 99.91])
+fahrenheit = (celsius * 9/5) + 32
+
+print("Цельсий бўйича қийматлар:", celsius)
+print("Фаренгейт бўйича қийматлар:", fahrenheit)
+
+
+import numpy as np
+
+massiv = np.array([10, 20, 30])
+print("Бошланғич массив:", massiv)
+
+yangi = np.append(massiv, [40, 50, 60, 70, 80, 90])
+print("Янги қийматлар қўшилган:", yangi)
+
+
+
+import numpy as np
+
+massiv = np.random.randint(1, 100, 10)
+print("Тасодифий массив:", massiv)
+
+print("Ўртача қиймат:", np.mean(massiv))
+print("Медиана:", np.median(massiv))
+print("Стандарт оғиш:", np.std(massiv))
+
+
+
+import numpy as np
+
+massiv = np.random.random((10, 10))
+print(massiv)
+
+print("Минимал қиймат:", massiv.min())
+print("Максимал қиймат:", massiv.max())
+
+
+
+import numpy as np
+
+massiv = np.random.random((3, 3, 3))
+print(massiv)
+
