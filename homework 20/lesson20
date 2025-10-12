@@ -1,0 +1,98 @@
+import sqlite3
+import pandas as pd
+
+# 📂 1. Базани улаймиз
+conn = sqlite3.connect("chinook.db")
+
+# -------------------------------
+# 🧾 1. Ҳар бир мижознинг умумий сарфи
+# -------------------------------
+query_total_spent = """
+SELECT 
+    c.CustomerId,
+    c.FirstName || ' ' || c.LastName AS FullName,
+    SUM(i.Total) AS TotalSpent
+FROM Customer c
+JOIN Invoice i ON c.CustomerId = i.CustomerId
+GROUP BY c.CustomerId
+ORDER BY TotalSpent DESC;
+"""
+
+customer_spending = pd.read_sql_query(query_total_spent, conn)
+
+print("💰 Ҳар бир мижознинг умумий сарфи:")
+print(customer_spending.head(10), "\n")
+
+# -------------------------------
+# 🏆 2. Энг кўп сарфлаган 5 мижоз
+# -------------------------------
+top5_customers = customer_spending.head(5)
+
+print("🏅 Энг кўп сарфлаган 5 мижоз:")
+print(top5_customers, "\n")
+
+# -------------------------------
+# 🎵 3. Ҳарид тури таҳлили — альбом ёки трек
+# -------------------------------
+# InvoiceLine — ҳар бир сотилган трек
+# Track ва Album орқали маълумотни бирлаштирамиз
+
+query_tracks = """
+SELECT
+    i.InvoiceId,
+    i.CustomerId,
+    il.TrackId,
+    t.AlbumId
+FROM Invoice i
+JOIN InvoiceLine il ON i.InvoiceId = il.InvoiceId
+JOIN Track t ON il.TrackId = t.TrackId
+"""
+
+sales_df = pd.read_sql_query(query_tracks, conn)
+
+# Ҳар бир мижоз қайси альбомдан неча трек олганини ҳисоблаймиз
+customer_album = (
+    sales_df.groupby(["CustomerId", "AlbumId"])["TrackId"]
+    .count()
+    .reset_index(name="TracksPurchased")
+)
+
+# Ҳар бир альбомда нечта трек борлигини аниқлаймиз
+album_tracks = pd.read_sql_query(
+    "SELECT AlbumId, COUNT(TrackId) AS TotalTracks FROM Track GROUP BY AlbumId;",
+    conn
+)
+
+# Бирлаштирамиз
+customer_album = customer_album.merge(album_tracks, on="AlbumId")
+
+# Агар мижоз барча трекларни олган бўлса — 'Full Album' деб қўямиз, акс ҳолда 'Single Tracks'
+customer_album["PurchaseType"] = customer_album.apply(
+    lambda x: "Full Album" if x["TracksPurchased"] == x["TotalTracks"] else "Single Tracks",
+    axis=1
+)
+
+# Ҳар бир мижознинг умумий харид турини аниқлаймиз
+customer_pref = (
+    customer_album.groupby("CustomerId")["PurchaseType"]
+    .apply(lambda x: "Full Album" if (x == "Full Album").any() else "Single Tracks")
+    .reset_index()
+)
+
+# Фоиз ҳисоблаш
+total_customers = customer_pref["CustomerId"].nunique()
+album_buyers = (customer_pref["PurchaseType"] == "Full Album").sum()
+single_buyers = (customer_pref["PurchaseType"] == "Single Tracks").sum()
+
+album_percent = round(album_buyers / total_customers * 100, 2)
+single_percent = round(single_buyers / total_customers * 100, 2)
+
+print("📊 Мижозлар бўйича харид тури таҳлили:")
+print(f"🎧 Альбом сотиб олганлар: {album_percent}%")
+print(f"🎵 Фақат трек сотиб олганлар: {single_percent}%\n")
+
+print("✅ Ҳар бир мижоз бўйича маълумот:")
+print(customer_pref.head())
+
+# 🔚 Базани ёпамиз
+conn.close()
