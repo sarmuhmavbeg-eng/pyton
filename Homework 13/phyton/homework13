@@ -1,0 +1,155 @@
+from datetime import date
+
+# Туғилган санани сўраш
+birth_date_str = input("Туғилган санаингизни киритинг (йил-ой-кун): ")
+birth_date = date.fromisoformat(birth_date_str)
+today = date.today()
+
+# Ёшни ҳисоблаш
+years = today.year - birth_date.year
+months = today.month - birth_date.month
+days = today.day - birth_date.day
+
+if days < 0:
+    months -= 1
+    days += 30
+if months < 0:
+    years -= 1
+    months += 12
+
+print(f"Сизнинг ёшингиз: {years} йил, {months} ой, {days} кун.")
+
+
+
+
+from datetime import date, timedelta
+
+birth_date_str = input("Туғилган санаингизни киритинг (йил-ой-кун): ")
+birth_date = date.fromisoformat(birth_date_str)
+today = date.today()
+
+next_birthday = date(today.year, birth_date.month, birth_date.day)
+if next_birthday < today:
+    next_birthday = date(today.year + 1, birth_date.month, birth_date.day)
+
+days_left = (next_birthday - today).days
+print(f"Келаси туғилган кунгача {days_left} кун қолди 🎉")
+
+
+
+from datetime import datetime, timedelta
+
+now_str = input("Жорий сана ва вақтни киритинг (йил-ой-кун соат:дақиқа): ")
+duration_h = int(input("Мажлис соатлари: "))
+duration_m = int(input("Мажлис дақиқалари: "))
+
+start_time = datetime.strptime(now_str, "%Y-%m-%d %H:%M")
+end_time = start_time + timedelta(hours=duration_h, minutes=duration_m)
+
+print("Мажлис тугайдиган вақт:", end_time.strftime("%Y-%m-%d %H:%M"))
+
+
+
+  from datetime import datetime
+import pytz
+
+# Вақт ва поясларни сўраш
+time_str = input("Сана ва вақтни киритинг (2025-12-12 20:20): ")
+from_zone = input("Жорий вақт пояси (масалан: Asia/Tashkent): ")
+to_zone = input("Қайси пояга айлантиришни истайсиз? ")
+
+dt = datetime.strptime(time_str, "%Y-%m-%d %H:%M")
+from_tz = pytz.timezone(from_zone)
+to_tz = pytz.timezone(to_zone)
+
+local_dt = from_tz.localize(dt)
+converted_dt = local_dt.astimezone(to_tz)
+
+print("Айлантирилган сана ва вақт:", converted_dt.strftime("%Y-%m-%d %H:%M"))
+
+
+
+
+  from datetime import datetime
+import time
+
+target_str = input("Бўлажак сана ва вақтни киритинг (йил-ой-кун соат:дақиқа:сония): ")
+target = datetime.strptime(target_str, "%Y-%m-%d %H:%M:%S")
+
+while True:
+    now = datetime.now()
+    if now >= target:
+        print("Вақт тугади! ⏰")
+        break
+    remaining = target - now
+    print(f"Қолди: {remaining}", end="\r")
+    time.sleep(1)
+
+
+
+  import re
+
+email = input("Электрон почта манзилингизни киритинг: ")
+
+pattern = r"^[\w\.-]+@[\w\.-]+\.\w+$"
+if re.match(pattern, email):
+    print("✅ Тўғри электрон почта формати.")
+else:
+    print("❌ Нотўғри электрон почта формати.")
+
+
+  phone = input("Телефон рақамингизни киритинг (масалан: 1234567890): ")
+if len(phone) == 10 and phone.isdigit():
+    formatted = f"({phone[0:3]}) {phone[3:6]}-{phone[6:]}"
+    print("Форматланган рақам:", formatted)
+else:
+    print("Нотўғри рақам формати!")
+    
+
+
+  import re
+
+password = input("Паролни киритинг: ")
+
+if len(password) < 8:
+    print("Парол жуда қисқа (камида 8 та белгидан иборат бўлиши керак).")
+elif not re.search(r"[A-Z]", password):
+    print("Паролда камида битта катта ҳарф бўлиши керак.")
+elif not re.search(r"[a-z]", password):
+    print("Паролда камида битта кичик ҳарф бўлиши керак.")
+elif not re.search(r"[0-9]", password):
+    print("Паролда камида битта рақам бўлиши керак.")
+else:
+    print("✅ Парол мустаҳкам!")
+
+
+  text = input("Матнни киритинг: ")
+word = input("Қидирилаётган сўзни киритинг: ")
+
+positions = []
+index = text.lower().find(word.lower())
+while index != -1:
+    positions.append(index)
+    index = text.lower().find(word.lower(), index + 1)
+
+if positions:
+    print(f"'{word}' сўзи {len(positions)} марта учради. Жойлашувлари: {positions}")
+else:
+    print("Сўз топилмади.")
+
+
+  import re
+
+text = input("Матнни киритинг: ")
+
+# YYYY-MM-DD ёки DD/MM/YYYY форматдаги саналарни излаш
+dates = re.findall(r"\b(\d{4}-\d{2}-\d{2}|\d{2}/\d{2}/\d{4})\b", text)
+
+if dates:
+    print("Матндаги саналар:")
+    for d in dates:
+        print("-", d)
+else:
+    print("Сана топилмади.")
+
+  
