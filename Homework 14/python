@@ -1,0 +1,134 @@
+import json
+
+# JSON файлни ўқиш
+with open("students.json", "r", encoding="utf-8") as f:
+    students = json.load(f)
+
+# Ҳар бир талаба ҳақида маълумот чиқариш
+for student in students:
+    print("👤 Талаба:", student.get("ism"))
+    print("   Ёш:", student.get("yosh"))
+    print("   Гуруҳ:", student.get("guruh"))
+    print("   Баҳолар:", student.get("baholar"))
+    print("-" * 40)
+
+
+[
+  {"ism": "Sardor", "yosh": 20, "guruh": "CS-21", "baholar": [5, 4, 5]},
+  {"ism": "Sarvar", "yosh": 19, "guruh": "CS-22", "baholar": [4, 5, 4]}
+]
+
+
+import requests
+
+# OpenWeather API (тест учун демо калит ёки ўз API калитингизни киритинг)
+API_KEY = "your_api_key_here"  # <-- Бу жойга ўз калитингизни ёзинг
+shahar = "Tashkent"
+url = f"https://api.openweathermap.org/data/2.5/weather?q={shahar}&appid={API_KEY}&units=metric&lang=uz"
+
+javob = requests.get(url)
+data = javob.json()
+
+if javob.status_code == 200:
+    print(f"🌤 {shahar} шаҳридаги об-ҳаво:")
+    print("Ҳарорат:", data["main"]["temp"], "°C")
+    print("Ҳис этилади:", data["main"]["feels_like"], "°C")
+    print("Намлик:", data["main"]["humidity"], "%")
+    print("Тавсиф:", data["weather"][0]["description"])
+else:
+    print("❌ Маълумотни олиб бўлмади. Код:", javob.status_code)
+
+
+
+
+import json
+import os
+
+fayl = "books.json"
+
+# Агар файл бўлмаса, бўш рўйхат яратамиз
+if not os.path.exists(fayl):
+    with open(fayl, "w", encoding="utf-8") as f:
+        json.dump([], f, ensure_ascii=False, indent=4)
+
+# Китоблар рўйхатини ўқиш
+with open(fayl, "r", encoding="utf-8") as f:
+    books = json.load(f)
+
+def saqlash():
+    with open(fayl, "w", encoding="utf-8") as f:
+        json.dump(books, f, ensure_ascii=False, indent=4)
+
+while True:
+    print("\n📚 Китоблар тизими:")
+    print("1. Янги китоб қўшиш")
+    print("2. Китобни янгилаш")
+    print("3. Китобни ўчириш")
+    print("4. Барча китобларни кўриш")
+    print("0. Чиқиш")
+
+    tanlov = input("Танловингиз: ")
+
+    if tanlov == "1":
+        nom = input("Китоб номи: ")
+        muallif = input("Муаллиф: ")
+        yil = input("Нашр йили: ")
+        books.append({"nom": nom, "muallif": muallif, "yil": yil})
+        saqlash()
+        print("✅ Китоб қўшилди.")
+
+    elif tanlov == "2":
+        nom = input("Янгиланадиган китоб номи: ")
+        for b in books:
+            if b["nom"] == nom:
+                b["muallif"] = input("Янги муаллиф: ")
+                b["yil"] = input("Янги нашр йили: ")
+                saqlash()
+                print("✅ Китоб янгиланди.")
+                break
+        else:
+            print("❌ Китоб топилмади.")
+
+    elif tanlov == "3":
+        nom = input("Ўчириладиган китоб номи: ")
+        books = [b for b in books if b["nom"] != nom]
+        saqlash()
+        print("🗑 Китоб ўчирилди.")
+
+    elif tanlov == "4":
+        if not books:
+            print("Китоблар йўқ.")
+        else:
+            for b in books:
+                print(f"📖 {b['nom']} ({b['muallif']}, {b['yil']})")
+
+    elif tanlov == "0":
+        print("Чиқилди.")
+        break
+
+    else:
+        print("Нотўғри танлов!")
+
+
+
+
+import requests
+import random
+
+API_KEY = "your_api_key_here"  # <-- OMDb API калитингизни ёзинг
+janr = input("Қандай жанрдаги фильмни хоҳлайсиз? (масалан: Action, Comedy, Drama): ")
+
+url = f"http://www.omdbapi.com/?apikey={API_KEY}&s={janr}&type=movie"
+javob = requests.get(url)
+data = javob.json()
+
+if data.get("Search"):
+    film = random.choice(data["Search"])
+    print(f"🎥 Тавсия этилган фильм: {film['Title']}")
+    print("Йил:", film["Year"])
+    print("IMDB ID:", film["imdbID"])
+else:
+    print("❌ Бу жанр бўйича фильмлар топилмади ёки API калит хато.")
+
+
+
