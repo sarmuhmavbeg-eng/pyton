@@ -1,0 +1,124 @@
+import pandas as pd
+
+# Файлни ўқиш
+sales_df = pd.read_csv("task/sales_data.csv")
+
+# Категория бўйича гуруҳлаб, умумий статистика ҳисоблаш
+stats = sales_df.groupby("Category").agg(
+    total_quantity=('Quantity', 'sum'),             # умумий сотилган маҳсулот сони
+    avg_price=('Price', 'mean'),                    # ўртача нарх
+    max_quantity_per_sale=('Quantity', 'max')       # бир операцияда энг кўп сотилган сони
+).reset_index()
+
+print("📊 Категория бўйича статистика:")
+print(stats, "\n")
+
+# Ҳар бир категорияда энг кўп сотилган товар
+top_products = (
+    sales_df.groupby(["Category", "Product"])["Quantity"]
+    .sum()
+    .reset_index()
+    .sort_values(["Category", "Quantity"], ascending=[True, False])
+)
+top_products = top_products.groupby("Category").head(1)
+
+print(" Ҳар бир категорияда энг кўп сотилган товар:")
+print(top_products, "\n")
+
+#️⃣ Энг юқори умумий фойда (Quantity * Price) қайси санада бўлган
+sales_df["TotalSales"] = sales_df["Quantity"] * sales_df["Price"]
+max_sales_date = (
+    sales_df.groupby("Date")["TotalSales"]
+    .sum()
+    .reset_index()
+    .sort_values("TotalSales", ascending=False)
+    .head(1)
+)
+
+print("Энг юқори савдо бўлган сана:")
+print(max_sales_date)
+
+
+
+import pandas as pd
+
+# Файлни ўқиш
+orders_df = pd.read_csv("task/customer_orders.csv")
+
+# 20 та буюртмадан кам қилган мижозларни олиб ташлаш
+customer_orders_count = orders_df.groupby("CustomerID")["OrderID"].count().reset_index(name="order_count")
+filtered_customers = customer_orders_count[customer_orders_count["order_count"] >= 20]
+print("20 та ёки ундан кўп буюртма қилган мижозлар:")
+print(filtered_customers.head(), "\n")
+
+# Ўртача нархи 120 доллардан юқори бўлган мижозлар
+avg_price_per_customer = orders_df.groupby("CustomerID")["Price"].mean().reset_index(name="avg_price")
+expensive_customers = avg_price_per_customer[avg_price_per_customer["avg_price"] > 120]
+print(" Ўртача нархи 120 доллардан юқори бўлган мижозлар:")
+print(expensive_customers.head(), "\n")
+
+# Ҳар бир товар учун умумий сони ва умумий қиймати
+product_summary = (
+    orders_df.assign(total_value=orders_df["Quantity"] * orders_df["Price"])
+    .groupby("Product")
+    .agg(total_quantity=('Quantity', 'sum'), total_value=('total_value', 'sum'))
+    .reset_index()
+)
+
+filtered_products = product_summary[product_summary["total_quantity"] >= 5]
+print("5 тадан кўп сотилган товарлар:")
+print(filtered_products.head(), "\n")
+
+
+
+
+
+import pandas as pd
+import sqlite3
+
+# SQLite базадан маълумотларни олиш
+conn = sqlite3.connect("task/population.db")
+population_df = pd.read_sql_query("SELECT * FROM population", conn)
+conn.close()
+
+print("Population маълумотлар намунаси:")
+print(population_df.head(), "\n")
+
+# Excel файлдан маош категория диапазонларини ўқиш
+salary_ranges = pd.read_excel("task/population salary analysis.xlsx")
+print(" Маош диапазонлари:")
+print(salary_ranges, "\n")
+
+# Ҳар бир инсонни тегишли маош категориясига ажратиш
+# Faraz qilamiz, Excel faylida "Category", "MinSalary", "MaxSalary" degan ustunlar bor
+def get_salary_category(salary):
+    row = salary_ranges[(salary_ranges["MinSalary"] <= salary) & (salary <= salary_ranges["MaxSalary"])]
+    return row["Category"].values[0] if not row.empty else "Бошқа"
+
+population_df["SalaryCategory"] = population_df["Salary"].apply(get_salary_category)
+
+# Категория бўйича умумий кўрсаткичлар
+category_stats = population_df.groupby("SalaryCategory").agg(
+    population_count=('Salary', 'count'),
+    avg_salary=('Salary', 'mean')
+).reset_index()
+
+# Ҳар бир категориянинг аҳолидаги улуши (%)
+total_population = population_df["Salary"].count()
+category_stats["population_share_%"] = (category_stats["population_count"] / total_population * 100).round(2)
+
+print(" Маош категориялари бўйича таҳлил:")
+print(category_stats, "\n")
+
+# Ҳар бир штат бўйича ҳам худди шундай ҳисоблаш
+state_salary_stats = (
+    population_df.groupby(["State", "SalaryCategory"])
+    .agg(
+        population_count=('Salary', 'count'),
+        avg_salary=('Salary', 'mean')
+    )
+    .reset_index()
+)
+print("Штатлар бўйича маош таҳлили:")
+print(state_salary_stats.head(), "\n")
+
