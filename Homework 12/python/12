@@ -1,0 +1,106 @@
+import threading
+
+# --- Соннинг оддийлигини текшириш (рекурсив) ---
+def is_prime_recursive(n, divisor=2):
+    if n < 2:
+        return False
+    if divisor * divisor > n:
+        return True
+    if n % divisor == 0:
+        return False
+    return is_prime_recursive(n, divisor + 1)
+
+
+# --- оқим функцияси: ички диапазонни текширади ---
+def check_primes_in_range(start, end, result_list):
+    local_primes = []
+    for num in range(start, end):
+        if is_prime_recursive(num):
+            local_primes.append(num)
+    result_list.extend(local_primes)
+
+
+# --- асосий дастур ---
+def main():
+    start_range = 1
+    end_range = 100
+    num_threads = 4
+
+    # Ҳар бир оқим учун ички диапазон ўлчами
+    chunk_size = (end_range - start_range) // num_threads
+    threads = []
+    primes = []
+
+    for i in range(num_threads):
+        start = start_range + i * chunk_size
+        end = start + chunk_size if i < num_threads - 1 else end_range + 1
+        thread = threading.Thread(target=check_primes_in_range, args=(start, end, primes))
+        threads.append(thread)
+        thread.start()
+
+    for t in threads:
+        t.join()
+
+    primes.sort()
+    print("Простые числа:", primes)
+
+
+if __name__ == "__main__":
+    main()
+
+
+with open("big_text.txt", "w", encoding="utf-8") as f:
+    f.write("Salom dunyo! Bu test fayl.\nPython dasturlash tili juda foydali.\nSalom Python!")
+
+
+
+
+import threading
+from collections import Counter
+
+# --- Оқим функцияси: ўз майдонидаги сўзларни санайди-----
+def count_words(lines, result_list):
+    local_counter = Counter()
+    for line in lines:
+        words = line.strip().lower().split()
+        local_counter.update(words)
+    result_list.append(local_counter)
+
+
+# --- асаосий дастур ---
+def main():
+    filename = "big_text.txt"
+    num_threads = 4
+    results = []
+
+    # Файлнинг барча сатрларини ўқиш
+    with open(filename, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    # Файлни бўлакларга бўлиш
+    chunk_size = len(lines) // num_threads
+    threads = []
+
+    for i in range(num_threads):
+        start = i * chunk_size
+        end = (i + 1) * chunk_size if i < num_threads - 1 else len(lines)
+        thread = threading.Thread(target=count_words, args=(lines[start:end], results))
+        threads.append(thread)
+        thread.start()
+
+    for t in threads:
+        t.join()
+
+    # Барча оқимларнинг натижаларини бирлаштирамиз
+    total_counter = Counter()
+    for c in results:
+        total_counter.update(c)
+
+    print("Топ-10 слов в файле:")
+    for word, count in total_counter.most_common(10):
+        print(f"{word}: {count}")
+
+
+if __name__ == "__main__":
+    main()
+
