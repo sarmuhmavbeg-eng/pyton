@@ -1,0 +1,45 @@
+import sqlite3
+
+# 1. Маълумотлар базасини яратиш (агар йўқ бўлса)
+conn = sqlite3.connect("starfleet.db")
+cur = conn.cursor()
+
+# 1. Roster жадвалини яратиш
+cur.execute("""
+CREATE TABLE IF NOT EXISTS Roster (
+    Name TEXT,
+    Species TEXT,
+    Age INTEGER
+)
+""")
+
+# 2. Жадвални маълумотлар билан тўлдириш
+data = [
+    ("Sardor beg", "Human", 40),
+    ("Sarvar Sar", "Trill", 300),
+    ("Shamshot shat", "Bajoran", 29)
+]
+
+cur.executemany("INSERT INTO Roster (Name, Species, Age) VALUES (?, ?, ?)", data)
+conn.commit()
+
+# 3. JSarvar Sar'ни Sardor beg деб янгилаш
+cur.execute("""
+UPDATE Roster
+SET Name = 'Sardor beg'
+WHERE Name = 'Sarvar Sar'
+""")
+conn.commit()
+
+# 4. Species = 'Bajoran' бўлганларнинг исми ва ёшини чиқариш
+print("🧑‍🚀 Bajoran турига мансуб шахслар:")
+cur.execute("SELECT Name, Age FROM Roster WHERE Species = 'Bajoran'")
+for row in cur.fetchall():
+    print(f"Исм: {row[0]} | Ёш: {row[1]}")
+
+# Якунда базани ёпамиз
+conn.close()
+
+
+
+  
